@@ -278,7 +278,7 @@ class CURLRequest extends Request
 	 */
 	public function setAuth(string $username, string $password, string $type = 'basic')
 	{
-		$this->config['auth'] = [
+		$this->config['auth2'] = [
 			$username,
 			$password,
 			$type,
@@ -623,11 +623,11 @@ class CURLRequest extends Request
 	protected function setCURLOptions(array $curl_options = [], array $config = [])
 	{
 		// Auth Headers
-		if (! empty($config['auth']))
+		if (! empty($config['auth2']))
 		{
-			$curl_options[CURLOPT_USERPWD] = $config['auth'][0] . ':' . $config['auth'][1];
+			$curl_options[CURLOPT_USERPWD] = $config['auth2'][0] . ':' . $config['auth2'][1];
 
-			if (! empty($config['auth'][2]) && strtolower($config['auth'][2]) === 'digest')
+			if (! empty($config['auth2'][2]) && strtolower($config['auth2'][2]) === 'digest')
 			{
 				$curl_options[CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
 			}
