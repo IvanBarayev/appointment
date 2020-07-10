@@ -1,3 +1,4 @@
+#SetEnv CI_ENVIRONMENT production
 SetEnv CI_ENVIRONMENT development
 <IfModule mod_rewrite.c>
 	RewriteEngine On

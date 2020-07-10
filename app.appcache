@@ -1,0 +1,14 @@
+CACHE MANIFEST
+
+CACHE
+/public/assets/dist/css/adminlte.min.css
+/public/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css
+/public/assets/plugins/sparklines/sparkline.js
+/public/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js
+/public/assets/dist/js/adminlte.js
+/public/assets/dist/js/pages/dashboard.js
+/public/assets/dist/js/demo.js
+
+# Use from network if available
+NETWORK:
+network.html

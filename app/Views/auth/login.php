@@ -20,9 +20,9 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <?php echo form_open('auth/login');?>
+            <?php echo form_open('/auth/chklogin');?>
                 <div class="input-group mb-3">
-                    <input type="text" name="identity" class="form-control" placeholder="<?php echo lang('Auth.login_identity_label') ?>">
+                    <input type="text" name="user" class="form-control" value="sahin@aytacbilisim.com" placeholder="<?php echo lang('auth.login_identity_label') ?>">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="<?php echo lang('Auth.login_password_label') ?>">
+                    <input type="password" name="pass" class="form-control" value="6453" placeholder="<?php echo lang('auth.login_password_label') ?>">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -41,7 +41,7 @@
                     <div class="col-8">
                         <div class="icheck-primary">
                             <?php echo form_checkbox('remember', '1', false, 'id="remember"');?>
-                            <?php echo form_label(lang('Auth.login_remember_label'), 'remember');?>
+                            <?php echo form_label(lang('auth.login_remember_label'), 'remember');?>
                         </div>
                     </div>
                     <div class="col-4"><button type="submit" class="btn btn-primary btn-block">Sign In</button></div>
@@ -52,7 +52,7 @@
                 <p>- OR -</p>
             </div>
             <p class="mb-1">
-                <a href="forgot_password"><?php echo lang('Auth.login_forgot_password');?></a>
+                <a href="forgot_password"><?php echo lang('auth.login_forgot_password');?></a>
             </p>
         </div>
     </div>

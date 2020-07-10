@@ -1,63 +1,46 @@
-<?php namespace Config;
+<?php
 
-// Create a new instance of our RouteCollection class.
+namespace Config;
+
 $routes = Services::routes();
 
-// Load the system's routing file first, so that the app and ENVIRONMENT
-// can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
-{
-	require SYSTEMPATH . 'Config/Routes.php';
+if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
+    require SYSTEMPATH . 'Config/Routes.php';
 }
 
-/**
- * --------------------------------------------------------------------
- * Router Setup
- * --------------------------------------------------------------------
- */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Auth');
-$routes->setDefaultMethod('Auth::login');
-$routes->setTranslateURIDashes(false);
+$routes->setDefaultController('Home');
+$routes->setDefaultMethod('Home::dashboard');
+$routes->setTranslateURIDashes(FALSE);
 $routes->set404Override();
-$routes->setAutoRoute(false);
+$routes->setAutoRoute(FALSE);
 
-/**
- * --------------------------------------------------------------------
- * Route Definitions
- * --------------------------------------------------------------------
- */
-
-// We get a performance increase by specifying the default
-// route since we don't have to scan directories.
-$routes->get('/', 'Auth::index');
+$routes->get('/', 'Home::dashboard');
 $routes->group('auth', ['namespace' => 'App\Controllers'], function ($routes) {
-    $routes->add('login', 'Auth::login');
+    $routes->add('login', 'Auth::login', ['as' => 'login']);
+    $routes->post('chklogin', 'Auth::chklogin', ['as' => 'chklogin']);
     $routes->get('logout', 'Auth::logout');
-    $routes->add('forgot_password', 'Auth::forgot_password');
-    $routes->get('/', 'Auth::index');
-    // $routes->add('create_user', 'Auth::create_user');
-    // $routes->add('edit_user/(:num)', 'Auth::edit_user/$1');
-    // $routes->add('create_group', 'Auth::create_group');
-    // $routes->get('activate/(:num)', 'Auth::activate/$1');
-    // $routes->get('activate/(:num)/(:hash)', 'Auth::activate/$1/$2');
-    // $routes->add('deactivate/(:num)', 'Auth::deactivate/$1');
-    // ...
+    $routes->add('forgot_password', 'Auth::forgot_password', ['as' => 'forgot_password']);
 });
-/**
- * --------------------------------------------------------------------
- * Additional Routing
- * --------------------------------------------------------------------
- *
- * There will often be times that you need additional routing and you
- * need to it be able to override any defaults in this file. Environment
- * based routes is one such time. require() additional route files here
- * to make that happen.
- *
- * You will have access to the $routes object within that file without
- * needing to reload it.
- */
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
-{
-	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+
+$routes->group('mng', ['namespace' => 'App\Controllers\Mng'], function ($routes) {
+    $routes->add('services', 'Services::list');
+    $routes->add('general', 'General::list');
+    $routes->add('forgot_password', 'Auth::forgot_password', ['as' => 'forgot_password']);
+});
+
+$routes->group('apps', ['namespace' => 'App\Controllers\Appointment'], function ($routes) {
+    $routes->add('list', 'Appointment::list');
+});
+
+$routes->group('clients', ['namespace' => 'App\Controllers\Clients'], function ($routes) {
+    $routes->add('list', 'Clients::list');
+});
+
+$routes->group('service', ['namespace' => 'App\Controllers\Service'], function ($routes) {
+    $routes->add('list', 'Service::list');
+});
+
+if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
